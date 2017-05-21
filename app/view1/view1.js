@@ -12,6 +12,7 @@ angular.module('gitHubApp.view1', ['ngRoute'])
   // Defining the controller that is going to reach the API
   // and fetch the information to display the organization
   .controller('gitHubSearch', function ($scope, $http, $sce) {
+    const accessToken = '<INSERT YOUR ACCESS TOKEN HERE>';
 
     // scope search checks for the name the user is requesting 
     $scope.search = '';
@@ -35,7 +36,7 @@ angular.module('gitHubApp.view1', ['ngRoute'])
     // Now I define the function that will fetch the data to display
     function fetch(data) {
       // because json has some restrictions, we need to use $sce to trust the URL that makes the request
-      $http.jsonp($sce.trustAsResourceUrl('https://api.github.com/orgs/' + $scope.search + '/repos?access_token=' + '33b51a75e68787ee27b6fe6486d19f64b1afad76'), {
+      $http.jsonp($sce.trustAsResourceUrl('https://api.github.com/orgs/' + $scope.search + '/repos?access_token=' + accessToken), {
         jsonCallbackParam: 'callback',
 
         // I am caching the return so it doesnt keep retrieving information
@@ -81,7 +82,7 @@ angular.module('gitHubApp.view1', ['ngRoute'])
     // If the user has clicked on a repo, we want to show the branches, therefore, we get the name of the repo 
     // add it to the url and make a second call to show the data to the user. 
     $scope.fetchBranches = (repo) => {
-      $http.jsonp($sce.trustAsResourceUrl('https://api.github.com/repos/' + $scope.search + '/' + repo.name + '/branches?access_token=' + '33b51a75e68787ee27b6fe6486d19f64b1afad76'), {
+      $http.jsonp($sce.trustAsResourceUrl('https://api.github.com/repos/' + $scope.search + '/' + repo.name + '/branches?access_token=' + accessToken), {
         jsonCallbackParam: 'callback',
         // in order to stop requesting the same information over and over,
         // we cache it, so if they user requests it once, it will be available till end of session (or reload). 

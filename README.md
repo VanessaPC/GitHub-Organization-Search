@@ -40,6 +40,14 @@ us manage and test the application.
 npm install
 ```
 
+### Insert Access Token
+Create your own access token in:
+
+[https://github.com/settings/tokens]
+
+then go to app/view1/view1.js line 15, replace the Access Token with the created one. 
+
+
 ### Run the Application
 
 ```
