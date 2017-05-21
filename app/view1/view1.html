@@ -1,1 +1,54 @@
-<p>This is the partial for view 1.</p>
+<div class="container" 
+     ng-app="gitHubApp">
+  <div ng-controller="gitHubSearch">
+    <form class="form-container">
+      <input class="input-search"
+             ng-model="search" 
+             ng-model-options="{ debounce: 1000 }"
+             placeholder="organization name"  
+             type="text" />
+    </form>
+
+    <div class="languages-container">
+        <ul >
+            <p class="languages-title">Languages in this organization: </p>
+            <li class="languages"
+                ng-click="filter('')"> All languages </li>
+            <li class="languages"
+                ng-repeat="language in languages"
+                ng-click="filter(language)">{{language}}</li>
+        </ul>
+    </div>
+    
+    <div>
+        <ul>
+            <li ng-show="!entries.length && search !== '' ">There is no organization by that name.</li>
+            <li class="repo-container"
+                ng-repeat="entry in entries | filter: {language: filterLanguage}">
+                    <div class="repo-name"
+                         ng-click="entry.branchesVisible = true">{{entry.name}}</div>
+                    <button class="close-branches"
+                            ng-show="entry.branchesVisible"
+                            ng-click="entry.branchesVisible = false" >close</button>
+                    <div class="repo-atribute">Language: {{entry.language}}</div>
+                    <span class="repo-atribute" > Repo URL: </span>
+                    <a  class="repo-link" 
+                        ng-href="{{entry.url}}" 
+                        target="_blank"> {{ entry.url }}</a>
+                    <div    class="repo-atribute"
+                            ng-show="!entry.private">Visibility: public</div> 
+                    <div    class="repo-atribute"
+                            ng-show="entry.private">Visibility: private</div>
+                    <div class="repo-atribute">Number of branches: {{entry.branches.length}}</div>
+
+                    <ul ng-show="entry.branchesVisible">
+                        <li class="branch-name"
+                            ng-repeat="branch in entry.branches">
+                            Branch name: {{branch.name}}
+                        </li>
+                    </ul>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>

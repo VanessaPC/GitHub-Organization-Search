@@ -1,25 +1,124 @@
 /* app css stylesheet */
+/* Start note: I am going to use CSS Grid for a couple of reasons: 
+  - the application size doesn´t require a full CSS framework 
+  - I find it easy and quick to add consistent style for this size with it.
+  - it will work on most browsers.
+*/
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+/* Reset and font include */
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+input:focus {
+  outline:none;
 }
 
-.menu:before {
-  content: "[";
+ul {
+  list-style-type: none;
 }
 
-.menu:after {
-  content: "]";
+/* Main container of the application */ 
+body {
+  background: #F8F8F8;
+  color: #222;
+  font-family: 'Raleway', Helvetica, sans-serif;
 }
 
-.menu > li {
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+}
+
+.form-container {
+  margin: 50px 0;
+  text-align: center;
+}
+
+.input-search {
+  border: 0;
+  margin: 0 auto;
+  width: 90%;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: rgb(212, 219, 227);
+}
+
+.input-search:focus{
+  background: #fff;
+}
+
+.languages-container {
+  display:inline-block;
+  margin: 0;
+}
+
+.languages-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.languages {
   display: inline;
+  margin: 0;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  background:  rgb(212, 219, 227);
+  border-radius: 50px;
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.languages:focus {
+  background: #fff;
+}
+
+.branch-name,
+.repo-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.close-branches {
+  border: none;
+  background: rgb(212, 219, 227);
+  font-size: 12px;
+  border-radius: 50px;
+}
+
+.repo-name:after {
+  content: " see branches";
+  font-size: 12px;
+  font-weight: 400;
+  color: #076EF1;
+  opacity: .4;
+}
+
+.repo-name:hover:after {
+  opacity: 1;
+}
+
+.repo-atribute {
+      font-size: 14px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+.repo-container {
+  background:rgb(212, 219, 227);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px 20px;
+}
+
+.repo-container:hover{
+  background: rgba(255, 255,255, .8);
+}
+
+.repo-link {
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.repo-link:hover {
+  text-decoration: 1px solid;
 }

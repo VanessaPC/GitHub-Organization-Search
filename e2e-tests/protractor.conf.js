@@ -6,7 +6,8 @@ exports.config = {
   specs: [
     '*.js'
   ],
-
+  directConnect: true,
+  chromeOnly: true,
   capabilities: {
     'browserName': 'chrome'
   },

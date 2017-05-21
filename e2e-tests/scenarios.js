@@ -17,25 +17,39 @@ describe('my app', function() {
       browser.get('index.html#!/view1');
     });
 
+    it('should search for repositories', function() {
+      element(by.model('search')).sendKeys('Mozilla');
 
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
+      expect(element.all(by.css('.repo-container')).count()).toBeGreaterThan(0);
     });
 
-  });
+    it('should have filtered languages', function() {
+      element(by.model('search')).sendKeys('Mozilla');
 
+      var languages = element.all(by.repeater('language in languages'));
 
-  describe('view2', function() {
-
-    beforeEach(function() {
-      browser.get('index.html#!/view2');
+      expect(languages.count()).toBeGreaterThan(0);
+      expect(languages.get(0).getText()).toBe('Python');
     });
 
+    it('should have repository information', function() {
+      element(by.model('search')).sendKeys('Mozilla');
 
-    it('should render view2 when user navigates to /view2', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 2/);
+      var repo = element.all(by.css('.repo-container')).get(0);
+
+      expect(repo.element(by.css('.repo-name')).getText()).toBe('zamboni');
+      expect(repo.element(by.css('.repo-link')).getText()).toBe('https://api.github.com/repos/mozilla/zamboni');
+    });
+
+    it('should have branches information', function() {
+      element(by.model('search')).sendKeys('Mozilla');
+
+      var repo = element.all(by.css('.repo-container')).get(0);
+
+      repo.element(by.css('.repo-name')).click();
+
+      expect(repo.all(by.repeater('branch in entry.branches')).count()).toBeGreaterThan(0);
+      expect(repo.all(by.css('.branch-name')).get(0).getText()).toBe('Branch name: 2015.06.02-02');
     });
 
   });
